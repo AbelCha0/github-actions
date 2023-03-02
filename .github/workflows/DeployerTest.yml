@@ -6,6 +6,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     environment: SEA-DEV
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
     - name: Checkout this repo
       uses: actions/checkout@v3
@@ -27,11 +29,19 @@ jobs:
         nexus_password: ${{ secrets.nexus_password }}
         KEY: ${{ secrets.decryption_key }}
       run: mvn test --settings .maven/settings.xml -Dsecure.key="$KEY"
-
+    - name: Notify Slack
+      uses: act10ns/slack@v2
+      with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: '#github-actions-notifications'
+      if: always()
   build:
     needs: test
     runs-on: ubuntu-latest
     environment: SEA-DEV
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
     - name: Checkout this repo
       uses: actions/checkout@v3
@@ -61,7 +71,7 @@ jobs:
           name: artifacts
           path: target/*.jar
     - name: Notify Slack
-      uses: act10ns/slack@v1.2.2
+      uses: act10ns/slack@v2
       with:
           status: ${{ job.status }}
           steps: ${{ toJson(steps) }}
@@ -72,6 +82,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment: SEA-DEV
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:    
     - name: Checkout this repo
       uses: actions/checkout@v3
@@ -104,7 +116,7 @@ jobs:
 
          
     - name: Notify Slack
-      uses: act10ns/slack@v1.2.2
+      uses: act10ns/slack@v2
       with:
           status: ${{ job.status }}
           steps: ${{ toJson(steps) }}
