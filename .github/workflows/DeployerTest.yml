@@ -5,6 +5,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: SEA-DEV
     steps:
     - name: Checkout this repo
       uses: actions/checkout@v3
@@ -30,6 +31,7 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    environment: SEA-DEV
     steps:
     - name: Checkout this repo
       uses: actions/checkout@v3
@@ -83,13 +85,10 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: artifacts
-    - name: Debug log
-      run: 
-        echo ${{ vars.anypoint_platform_username }}  ${{ vars.anypoint_platform_password }}
     - name: Deploy to Sandbox
       env:
-        USERNAME: ${{ vars.anypoint_platform_username }}
-        PASSWORD: ${{ vars.anypoint_platform_password }}
+        USERNAME: ${{ sercet.anypoint_platform_username }}
+        PASSWORD: ${{ sercet.anypoint_platform_password }}
         KEY: ${{ secrets.decryption_key }}
       run: |
         artifactName=$(ls *.jar | head -1)
@@ -102,7 +101,7 @@ jobs:
          -Dworkers="1"
          -DworkerType="MICRO "
          -Ddecryption.key="$KEY"
-         -DbusinessGroupId=
+
          
     - name: Notify Slack
       uses: act10ns/slack@v1.2.2
