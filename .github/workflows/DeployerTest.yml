@@ -83,6 +83,9 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: artifacts
+    - name: Debug log
+      run: 
+        echo ${{ secrets.anypoint_platform_username }}  ${{ secrets.anypoint_platform_password }}
     - name: Deploy to Sandbox
       env:
         USERNAME: ${{ secrets.anypoint_platform_username }}
@@ -99,6 +102,7 @@ jobs:
          -Dworkers="1"
          -DworkerType="MICRO "
          -Ddecryption.key="$KEY"
+         -DbusinessGroupId=
          
     - name: Notify Slack
       uses: act10ns/slack@v1.2.2
