@@ -69,6 +69,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    environment: SEA-DEV
     steps:    
     - name: Checkout this repo
       uses: actions/checkout@v3
