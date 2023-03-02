@@ -85,11 +85,11 @@ jobs:
         name: artifacts
     - name: Debug log
       run: 
-        echo ${{ secrets.anypoint_platform_username }}  ${{ secrets.anypoint_platform_password }}
+        echo ${{ vars.anypoint_platform_username }}  ${{ vars.anypoint_platform_password }}
     - name: Deploy to Sandbox
       env:
-        USERNAME: ${{ secrets.anypoint_platform_username }}
-        PASSWORD: ${{ secrets.anypoint_platform_password }}
+        USERNAME: ${{ vars.anypoint_platform_username }}
+        PASSWORD: ${{ vars.anypoint_platform_password }}
         KEY: ${{ secrets.decryption_key }}
       run: |
         artifactName=$(ls *.jar | head -1)
