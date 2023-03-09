@@ -108,10 +108,11 @@ jobs:
          -Dmule.artifact=$artifactName \
          -Danypoint.connAppClientID="$CONNAPPCLIENTID" \
          -Danypoint.anypoint.connAppClientSecret="$CONNAPPCLIENTSECRET" \
-         -Denv="SEA-DEV"
-         -Dregion="ap-southeast-1"
-         -Dworkers="1"
-         -DworkerType="MICRO "
+         -Danypoint.businessGroupId="a3e03bf4-af3a-4d32-b07d-efbcd5cdc776" \
+         -Denv=SEA-DEV \
+         -Dregion=ap-southeast-1 \
+         -Dworkers=1 \
+         -DworkerType=MICRO \
          -Ddecryption.key="$KEY"
 
          
