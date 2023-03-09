@@ -3,8 +3,6 @@ name: Build and Deploy to Sandbox
 on:
  workflow_dispatch: 
  
-env:
-  ENVIR: SEA-DEV
     
 jobs:
   test:
