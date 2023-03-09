@@ -1,11 +1,15 @@
 name: Build and Deploy to Sandbox
 
 on:
- workflow_dispatch:   
+ workflow_dispatch: 
+ 
+env:
+  ENVIR: SEA-DEV
+    
 jobs:
   test:
     runs-on: ubuntu-latest
-    environment: SEA-DEV
+    environment: $ENVIR
     env:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
@@ -39,7 +43,7 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
-    environment: SEA-DEV
+    environment: $ENVIR
     env:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
@@ -81,7 +85,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment: SEA-DEV
+    environment: $ENVIR
     env:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:    
