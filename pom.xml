@@ -34,6 +34,7 @@
 						<connectedAppClientSecret>${anypoint.connAppClientSecret}</connectedAppClientSecret>
 						<applicationName>${cloudhub.application.name}</applicationName>
 						<connectedAppGrantType>client_credentials</connectedAppGrantType>
+						<businessGroupId>${anypoint.businessGroupId}</businessGroupId>
 						<environment>${env}</environment>
 						<region>${region}</region>
 						<workers>${workers}</workers>
