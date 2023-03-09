@@ -99,15 +99,15 @@ jobs:
         name: artifacts
     - name: Deploy to Sandbox
       env:
-        USERNAME: ${{ secrets.anypoint_platform_username }}
-        PASSWORD: ${{ secrets.anypoint_platform_password }}
+        CONNAPPCLIENTID: ${{ secrets.conn_app_client_id }}
+        CONNAPPCLIENTSECRET: ${{ secrets.conn_app_client_secret }}
         KEY: ${{ secrets.decryption_key }}
       run: |
         artifactName=$(ls *.jar | head -1)
         mvn deploy -DskipMunitTests -DmuleDeploy \
          -Dmule.artifact=$artifactName \
-         -Danypoint.username="$USERNAME" \
-         -Danypoint.password="$PASSWORD" \
+         -Danypoint.connAppClientID="$CONNAPPCLIENTID" \
+         -Danypoint.anypoint.connAppClientSecret="$CONNAPPCLIENTSECRET" \
          -Denv="SEA-DEV"
          -Dregion="ap-southeast-1"
          -Dworkers="1"
