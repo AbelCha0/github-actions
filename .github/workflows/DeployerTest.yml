@@ -1,7 +1,9 @@
 name: Build and Deploy to Sandbox
 
 on:
- workflow_dispatch:   
+ workflow_dispatch: 
+ 
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -65,8 +67,8 @@ jobs:
         artifactName=$(ls *.jar | head -1)
         mvn deploy -DskipMunitTests -DmuleDeploy \
          -Dmule.artifact=$artifactName \
-         -Danypoint.connAppClientID="$CONNAPPCLIENTID" \
-         -Danypoint.anypoint.connAppClientSecret="$CONNAPPCLIENTSECRET" \
+         -Danypoint.connAppClientID=$CONNAPPCLIENTID \
+         -Danypoint.connAppClientSecret=$CONNAPPCLIENTSECRET \
          -Danypoint.businessGroupId=a3e03bf4-af3a-4d32-b07d-efbcd5cdc776 \
          -Denv=SEA-DEV \
          -Dregion=ap-southeast-1 \
